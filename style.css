@@ -1,28 +1,26 @@
- <style>
-    body {
-      background-color: #f8f6f0;
-      color: #2b2b2b;
-      font-family: "Zen Kaku Gothic New", sans-serif;
-    }
-    .font-mincho {
-      font-family: "Shippori Mincho", serif;
-    }
-    .fade-enter {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    .fade-enter-active {
-      opacity: 1;
-      transform: translateY(0);
-      transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-    .option-btn {
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .option-btn:hover {
-      transform: translateY(-2px);
-    }
-    .option-btn:active {
-      transform: translateY(0);
-    }
-  </style>
+body {
+  background-color: #f8f6f0;
+  color: #2b2b2b;
+  font-family: "Zen Kaku Gothic New", sans-serif;
+}
+.font-mincho {
+  font-family: "Shippori Mincho", serif;
+}
+.fade-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.option-btn {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.option-btn:hover {
+  transform: translateY(-2px);
+}
+.option-btn:active {
+  transform: translateY(0);
+}
