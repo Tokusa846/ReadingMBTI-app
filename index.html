@@ -1,11 +1,709 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>読書の価値観診断</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Shippori Mincho"', 'serif'],
+            sans: ['"Zen Kaku Gothic New"', 'sans-serif'],
+          },
+          colors: {
+            book: {
+              bg: '#f8f6f0',
+              card: '#ffffff',
+              primary: '#2c3e35', // 深い緑（ライブラリグリーン）
+              accent: '#c59b27',  // 書籍風の落ち着いたゴールド
+              text: '#2b2b2b',
+              muted: '#6b7280',
+              border: '#e5e0d8',
+              lightBg: '#f3efe6',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #f8f6f0;
+      color: #2b2b2b;
+      font-family: "Zen Kaku Gothic New", sans-serif;
+    }
+    .font-mincho {
+      font-family: "Shippori Mincho", serif;
+    }
+    .fade-enter {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    .fade-enter-active {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .option-btn {
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .option-btn:hover {
+      transform: translateY(-2px);
+    }
+    .option-btn:active {
+      transform: translateY(0);
+    }
+  </style>
 </head>
-<body>
-    Hallo、木賊World！
+<body class="min-h-screen flex flex-col items-center justify-between p-4 sm:p-6">
+
+  <header class="w-full max-w-2xl py-4 border-b border-book-border flex justify-between items-center mb-6">
+    <div class="flex items-center gap-2">
+      <svg class="w-6 h-6 text-book-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+      </svg>
+      <span class="font-serif font-bold text-lg text-book-primary tracking-wider">読書の価値観診断</span>
+    </div>
+    <span class="text-xs text-book-muted bg-book-lightBg px-2.5 py-1 rounded-full font-medium">16 Types</span>
+  </header>
+
+  <main class="w-full max-w-2xl flex-grow flex flex-col justify-center my-auto">
+
+    <!-- 1. トップ画面 -->
+    <section id="screen-top" class="fade-enter-active bg-book-card rounded-2xl p-6 sm:p-10 shadow-sm border border-book-border text-center">
+      <div class="inline-block p-3 bg-book-lightBg rounded-full text-book-primary mb-4">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+        </svg>
+      </div>
+      <h1 class="text-2xl sm:text-3xl font-serif font-bold text-book-primary mb-3">
+        あなたは「読書」をどう捉えていますか？
+      </h1>
+      <p class="text-book-muted text-sm sm:text-base leading-relaxed mb-6">
+        本を選ぶとき、読んでいるとき、そして読み終えたあと。<br>
+        そこには、あなた自身も気づいていない<br class="hidden sm:inline">
+        「本との付き合い方」が表れています。<br><br>
+        26の質問から、あなたの読書価値観を<br>
+        16タイプの職能として紐解きます。
+      </p>
+
+      <div class="bg-book-bg p-4 rounded-xl text-left text-xs sm:text-sm text-book-muted mb-8 space-y-1 border border-book-border/60">
+        <p class="font-bold text-book-text mb-2 flex items-center gap-1">
+          <svg class="w-4 h-4 text-book-accent" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+          注意事項
+        </p>
+        <p>・所要時間：約3〜5分（全26問、4択）</p>
+        <p>・直感で自分に近いものを選択してください。</p>
+        <p>・医学的・心理学的な検査ではありません。</p>
+      </div>
+
+      <button id="btn-start" class="w-full sm:w-auto px-8 py-4 bg-book-primary hover:bg-opacity-90 text-white font-bold rounded-xl shadow-md transition-all duration-200 text-lg flex items-center justify-center gap-2 mx-auto">
+        診断を始める
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+      </button>
+    </section>
+
+    <!-- 2. 質問画面 -->
+    <section id="screen-quiz" class="hidden bg-book-card rounded-2xl p-6 sm:p-8 shadow-sm border border-book-border">
+      <!-- プログレスバー -->
+      <div class="mb-6">
+        <div class="flex justify-between items-center text-xs font-medium text-book-muted mb-2">
+          <span id="quiz-progress-text">Q1 / 26</span>
+          <span id="quiz-progress-percent">0%</span>
+        </div>
+        <div class="w-full bg-book-bg h-2 rounded-full overflow-hidden border border-book-border/40">
+          <div id="quiz-progress-bar" class="bg-book-primary h-full transition-all duration-300 ease-out" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <!-- 質問テキスト -->
+      <div class="min-h-[100px] flex items-center justify-center mb-8 py-2">
+        <h2 id="quiz-question" class="text-lg sm:text-xl font-serif font-semibold text-center text-book-primary leading-relaxed">
+          質問文がここに入ります。
+        </h2>
+      </div>
+
+      <!-- 回答選択肢 -->
+      <div class="space-y-3 mb-6" id="quiz-options">
+        <button class="option-btn w-full p-4 text-left rounded-xl border border-book-border hover:border-book-primary hover:bg-book-lightBg/50 font-medium text-book-text text-sm sm:text-base flex items-center justify-between" data-score="3">
+          <span>とても当てはまる</span>
+          <div class="w-4 h-4 rounded-full border border-book-border group-hover:border-book-primary"></div>
+        </button>
+        <button class="option-btn w-full p-4 text-left rounded-xl border border-book-border hover:border-book-primary hover:bg-book-lightBg/50 font-medium text-book-text text-sm sm:text-base flex items-center justify-between" data-score="2">
+          <span>やや当てはまる</span>
+          <div class="w-4 h-4 rounded-full border border-book-border group-hover:border-book-primary"></div>
+        </button>
+        <button class="option-btn w-full p-4 text-left rounded-xl border border-book-border hover:border-book-primary hover:bg-book-lightBg/50 font-medium text-book-text text-sm sm:text-base flex items-center justify-between" data-score="1">
+          <span>あまり当てはまらない</span>
+          <div class="w-4 h-4 rounded-full border border-book-border group-hover:border-book-primary"></div>
+        </button>
+        <button class="option-btn w-full p-4 text-left rounded-xl border border-book-border hover:border-book-primary hover:bg-book-lightBg/50 font-medium text-book-text text-sm sm:text-base flex items-center justify-between" data-score="0">
+          <span>全く当てはまらない</span>
+          <div class="w-4 h-4 rounded-full border border-book-border group-hover:border-book-primary"></div>
+        </button>
+      </div>
+
+      <!-- ナビゲーション補助 -->
+      <div class="flex justify-between items-center text-xs text-book-muted border-t border-book-border/40 pt-4">
+        <button id="btn-back" class="hover:text-book-primary transition-colors flex items-center gap-1 disabled:opacity-30 disabled:cursor-not-allowed">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+          前の質問に戻る
+        </button>
+        <span id="quiz-axis-tag" class="text-[10px] bg-book-bg px-2 py-0.5 rounded border border-book-border">選書基準</span>
+      </div>
+    </section>
+
+    <!-- 3. 判定中画面 -->
+    <section id="screen-loading" class="hidden bg-book-card rounded-2xl p-10 shadow-sm border border-book-border text-center my-auto py-16">
+      <div class="relative w-16 h-16 mx-auto mb-6">
+        <div class="absolute inset-0 rounded-full border-4 border-book-lightBg border-t-book-primary animate-spin"></div>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <svg class="w-6 h-6 text-book-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+          </svg>
+        </div>
+      </div>
+      <h2 class="text-xl font-serif font-bold text-book-primary mb-3">あなたの読書価値観を解析中……</h2>
+      <p class="text-xs sm:text-sm text-book-muted leading-relaxed max-w-sm mx-auto">
+        本との出会い方、読み方、受け取ったものの残し方をもとに、あなたに最も近い職能を探しています。
+      </p>
+    </section>
+
+    <!-- 4. 結果表示画面 -->
+    <section id="screen-result" class="hidden space-y-6">
+      <!-- メイン結果カード -->
+      <div class="bg-book-card rounded-2xl p-6 sm:p-8 shadow-sm border border-book-border text-center relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-2 bg-book-primary"></div>
+        
+        <p class="text-xs font-bold tracking-widest text-book-accent uppercase mb-1">Your Reading Profile</p>
+        <div id="result-code" class="text-4xl sm:text-5xl font-serif font-extrabold text-book-primary tracking-wider mb-2">KARS</div>
+        <h2 id="result-title" class="text-xl sm:text-2xl font-serif font-bold text-book-text mb-4">知の仲介者</h2>
+        
+        <div class="bg-book-bg p-4 rounded-xl border border-book-border/60 mb-6">
+          <p id="result-one-line" class="text-sm sm:text-base font-semibold text-book-primary leading-relaxed">
+            知識を分析し、現実へ活かし、人と共有する読者。
+          </p>
+        </div>
+
+        <p id="result-description" class="text-xs sm:text-sm text-book-muted text-left leading-relaxed mb-6">
+          本から得た知識を構造的に理解し、仕事や生活で実践する。さらに、自分の学びを整理して人へ伝え、知見を循環させることに喜びを感じる。
+        </p>
+
+        <!-- 読書傾向リスト -->
+        <div class="text-left bg-book-lightBg/50 p-4 rounded-xl border border-book-border/40 mb-6">
+          <h3 class="text-xs font-bold text-book-primary uppercase tracking-wider mb-2 flex items-center gap-1">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+            読書傾向の特長
+          </h3>
+          <ul id="result-traits" class="text-xs sm:text-sm text-book-text space-y-1.5 list-disc list-inside">
+            <!-- 動的挿入 -->
+          </ul>
+        </div>
+
+        <!-- 4軸の分析メーター -->
+        <div class="text-left space-y-3 pt-2 border-t border-book-border">
+          <h3 class="text-xs font-bold text-book-primary uppercase tracking-wider mb-3">読書スタイル 4軸分析</h3>
+          
+          <!-- K/E -->
+          <div class="space-y-1">
+            <div class="flex justify-between text-xs font-medium">
+              <span id="axis-k-label" class="text-book-text">K: 知識を求める</span>
+              <span id="axis-e-label" class="text-book-muted">Emotion : E</span>
+            </div>
+            <div class="w-full bg-book-bg h-2 rounded-full overflow-hidden flex border border-book-border/40">
+              <div id="bar-k" class="bg-book-primary h-full transition-all duration-500" style="width: 50%"></div>
+              <div id="bar-e" class="bg-book-border h-full transition-all duration-500" style="width: 50%"></div>
+            </div>
+          </div>
+
+          <!-- A/F -->
+          <div class="space-y-1">
+            <div class="flex justify-between text-xs font-medium">
+              <span id="axis-a-label" class="text-book-text">A: 構造を読み解く</span>
+              <span id="axis-f-label" class="text-book-muted">Feel : F</span>
+            </div>
+            <div class="w-full bg-book-bg h-2 rounded-full overflow-hidden flex border border-book-border/40">
+              <div id="bar-a" class="bg-book-primary h-full transition-all duration-500" style="width: 50%"></div>
+              <div id="bar-f" class="bg-book-border h-full transition-all duration-500" style="width: 50%"></div>
+            </div>
+          </div>
+
+          <!-- R/I -->
+          <div class="space-y-1">
+            <div class="flex justify-between text-xs font-medium">
+              <span id="axis-r-label" class="text-book-text">R: 現実へ持ち帰る</span>
+              <span id="axis-i-label" class="text-book-muted">Immerse : I</span>
+            </div>
+            <div class="w-full bg-book-bg h-2 rounded-full overflow-hidden flex border border-book-border/40">
+              <div id="bar-r" class="bg-book-primary h-full transition-all duration-500" style="width: 50%"></div>
+              <div id="bar-i" class="bg-book-border h-full transition-all duration-500" style="width: 50%"></div>
+            </div>
+          </div>
+
+          <!-- S/P -->
+          <div class="space-y-1">
+            <div class="flex justify-between text-xs font-medium">
+              <span id="axis-s-label" class="text-book-text">S: 人と分かち合う</span>
+              <span id="axis-p-label" class="text-book-muted">Personal : P</span>
+            </div>
+            <div class="w-full bg-book-bg h-2 rounded-full overflow-hidden flex border border-book-border/40">
+              <div id="bar-s" class="bg-book-primary h-full transition-all duration-500" style="width: 50%"></div>
+              <div id="bar-p" class="bg-book-border h-full transition-all duration-500" style="width: 50%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- アクションボタン領域 -->
+      <div class="space-y-3">
+        <button id="btn-share-x" class="w-full py-3.5 bg-black hover:bg-gray-800 text-white font-bold rounded-xl shadow transition-all flex items-center justify-center gap-2 text-sm sm:text-base">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          X (Twitter) で結果をシェア
+        </button>
+
+        <div class="grid grid-cols-2 gap-3">
+          <button id="btn-copy" class="py-3 bg-book-card hover:bg-book-lightBg text-book-primary border border-book-border font-bold rounded-xl transition-all text-xs sm:text-sm flex items-center justify-center gap-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            結果をコピー
+          </button>
+
+          <button id="btn-restart" class="py-3 bg-book-card hover:bg-book-lightBg text-book-muted border border-book-border font-medium rounded-xl transition-all text-xs sm:text-sm flex items-center justify-center gap-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+            もう一度診断する
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- フッター -->
+  <footer class="w-full max-w-2xl py-6 border-t border-book-border text-center text-xs text-book-muted mt-8">
+    <p>© 読書の価値観診断 | Reading Values Profile</p>
+  </footer>
+
+  <!-- カスタムトースト -->
+  <div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-book-primary text-white text-xs sm:text-sm px-4 py-2.5 rounded-full shadow-lg opacity-0 pointer-events-none transition-opacity duration-300 flex items-center gap-2">
+    <svg class="w-4 h-4 text-book-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+    <span id="toast-message">メッセージ</span>
+  </div>
+
+  <script>
+    // --- 設問データ (全26問) ---
+    const QUESTIONS = [
+      // K / E 軸 (Q1~Q8)
+      { id: 1, text: "本を選ぶときは、「何を学べるか」が気になる。", axis: "KE", target: "K", weight: 2, label: "選書基準" },
+      { id: 2, text: "本を選ぶときは、「どんな気持ちになれそうか」が気になる。", axis: "KE", target: "E", weight: 2, label: "選書基準" },
+      { id: 3, text: "本を読み終えたとき、「新しい知識や考え方を得られた」と感じると満足する。", axis: "KE", target: "K", weight: 2, label: "満足感" },
+      { id: 4, text: "本を読み終えたとき、「心が動かされた」と感じると満足する。", axis: "KE", target: "E", weight: 2, label: "満足感" },
+      { id: 5, text: "本を読んでいるとき、新しい考え方や視点に出会う瞬間が好きだ。", axis: "KE", target: "K", weight: 2, label: "読書中の価値" },
+      { id: 6, text: "本を読んでいるとき、その本の世界や空気に浸ることが好きだ。", axis: "KE", target: "E", weight: 2, label: "読書中の価値" },
+      { id: 7, text: "読書中、「なるほど」と思う瞬間に嬉しさを感じる。", axis: "KE", target: "K", weight: 1, label: "補助判定" },
+      { id: 8, text: "読書中、「この気持ち、分かる」と感じる瞬間に嬉しさを感じる。", axis: "KE", target: "E", weight: 1, label: "補助判定" },
+
+      // A / F 軸 (Q9~Q14)
+      { id: 9, text: "登場人物の気持ちよりも、出来事が起きた理由が気になる。", axis: "AF", target: "A", weight: 2, label: "注目対象" },
+      { id: 10, text: "伏線や構成に気づきながら読むことが多い。", axis: "AF", target: "A", weight: 2, label: "構造への注目" },
+      { id: 11, text: "作者がなぜこの表現や展開を選んだのか考えながら読む。", axis: "AF", target: "A", weight: 2, label: "作者意図への注目" },
+      { id: 12, text: "本の世界の雰囲気や空気感を味わうことが好きだ。", axis: "AF", target: "F", weight: 2, label: "空気への注目" },
+      { id: 13, text: "読書中、「この表現が好きだ」と感じることが多い。", axis: "AF", target: "F", weight: 2, label: "表現への反応" },
+      { id: 14, text: "内容を細かく理解するより、物語の流れに身を任せて読むことが多い。", axis: "AF", target: "F", weight: 1, label: "補助判定" },
+
+      // R / I 軸 (Q15~Q20)
+      { id: 15, text: "読んだ内容を、実際の生活で試してみたくなる。", axis: "RI", target: "R", weight: 2, label: "現実への反映" },
+      { id: 16, text: "本をきっかけに、自分の行動や習慣を変えることがある。", axis: "RI", target: "R", weight: 2, label: "行動変化" },
+      { id: 17, text: "印象に残った内容は、後で振り返れる形にしておきたい。", axis: "RI", target: "R", weight: 1, label: "記録・整理" },
+      { id: 18, text: "読み終えたあとは、すぐに整理せず、しばらく余韻に浸っていたい。", axis: "RI", target: "I", weight: 2, label: "余韻" },
+      { id: 19, text: "本の一節や場面を、後になって何度も思い返すことがある。", axis: "RI", target: "I", weight: 2, label: "心への定着" },
+      { id: 20, text: "本から受け取ったものは、時間をかけて自分の中で意味を持つと思う。", axis: "RI", target: "I", weight: 1, label: "補助判定" },
+
+      // S / P 軸 (Q21~Q26)
+      { id: 21, text: "面白かった本は、誰かに勧めたくなる。", axis: "SP", target: "S", weight: 2, label: "推薦行動" },
+      { id: 22, text: "同じ本を読んだ人と、感想や考察を語り合いたくなる。", axis: "SP", target: "S", weight: 2, label: "対話" },
+      { id: 23, text: "人の感想を聞くことで、本への理解が深まると感じる。", axis: "SP", target: "S", weight: 1, label: "他者との交流" },
+      { id: 24, text: "本の感想は、無理に言葉にせず、自分の中だけに残しておきたい。", axis: "SP", target: "P", weight: 2, label: "感想の保持" },
+      { id: 25, text: "他人の解釈に触れず、自分だけの余韻を大切にしたい。", axis: "SP", target: "P", weight: 2, label: "個人的な読書体験" },
+      { id: 26, text: "本との思い出は、自分だけの大切なものとしてしまっておきたい。", axis: "SP", target: "P", weight: 1, label: "補助判定" }
+    ];
+
+    // --- 16タイプ診断データ ---
+    const TYPES_DATA = {
+      "KARS": {
+        title: "知の仲介者",
+        oneLine: "知識を分析し、現実へ活かし、人と共有する読者。",
+        desc: "本から得た知識を構造的に理解し、仕事や生活で実践する。さらに、自分の学びを整理して人へ伝え、知見を循環させることに喜びを感じる。",
+        traits: ["根拠や仕組みを重視する", "読んだ内容を試したくなる", "人へ分かりやすく説明したくなる"]
+      },
+      "KARP": {
+        title: "価値観の設計者",
+        oneLine: "知識を分析し、現実へ活かし、自分の糧にする読者。",
+        desc: "本から得た知識を深く理解し、自分の判断基準や価値観へ組み込む。人へ積極的に共有するより、自分自身を支える確かな土台として蓄積する。",
+        traits: ["納得できるまで考える", "自分の価値観と照らし合わせる", "学びを静かに生活へ取り入れる"]
+      },
+      "KAIS": {
+        title: "視点の案内人",
+        oneLine: "知識を分析し、心に留めながら、人と共有する読者。",
+        desc: "本の背景や構造を探究し、そこから得た新しい視点を人と交換する。すぐ実践することより、考察や対話によって理解を広げることを楽しむ。",
+        traits: ["本同士の関連性を考える", "新しい視点を発見する", "考察を人と語り合う"]
+      },
+      "KAIP": {
+        title: "孤高の沈思者",
+        oneLine: "知識を分析し、心に留め、自分だけの理解を深める読者。",
+        desc: "情報の表面だけでなく、背景や構造を自分が納得するまで考え続ける。他者の評価や共有を必要とせず、本を思考を深める対話相手として捉える。",
+        traits: ["深読みや再読を好む", "読後も考察を続ける", "自分なりの答えを探す"]
+      },
+      "KFRS": {
+        title: "共感の伝播者",
+        oneLine: "知識を感じ取り、現実へ活かし、人へ届ける読者。",
+        desc: "知識を理屈だけでなく、具体的なエピソードや自分への響きから受け取る。心に残った学びを日常で実践し、その価値を人にも伝えようとする。",
+        traits: ["エピソードから学びを得る", "印象に残った考えを試す", "本の魅力を人へ勧める"]
+      },
+      "KFRP": {
+        title: "日常の耕作者",
+        oneLine: "知識を感じ取り、現実へ活かし、自分の中で育てる読者。",
+        desc: "本から得た気づきを、自分の日常へ少しずつ取り入れる。大きく変わろうとするのではなく、心に残った言葉によって、自分の生活や価値観を静かに耕していく。",
+        traits: ["自分に響く言葉を大切にする", "学びを小さな行動へ変える", "本を静かな指針として扱う"]
+      },
+      "KFIS": {
+        title: "情感の語り部",
+        oneLine: "知識を感じ取り、心に留めながら、人と分かち合う読者。",
+        desc: "本に含まれる知識だけでなく、文章の雰囲気や作者の思いも受け取る。すぐに行動へ変えるより、印象に残った部分を人と語り合うことで理解を深める。",
+        traits: ["言葉や場面の印象を重視する", "感じたことを誰かと共有する", "対話を通じて本を味わい直す"]
+      },
+      "KFIP": {
+        title: "言葉の醸造家",
+        oneLine: "知識を感じ取り、心に留め、自分だけの宝物にする読者。",
+        desc: "本から受け取った言葉や気づきを急いで整理せず、自分の中で時間をかけて熟成させる。ふとした瞬間に一節を思い返し、自分だけの意味を見つけていく。",
+        traits: ["心に残る表現を大切にする", "時間を置いて意味を味わう", "読書体験を自分の中へしまっておく"]
+      },
+      "EARS": {
+        title: "感情の共鳴師",
+        oneLine: "感情を分析し、現実へ活かし、人へ届ける読者。",
+        desc: "心が動いた理由や登場人物の心理を考察し、その気づきを現実の人間関係や生き方へ活かす。さらに、受け取った感情や学びを人へ伝えることで共感を広げる。",
+        traits: ["感情の背景を考える", "人間理解へつなげる", "心が動いた理由を人へ伝える"]
+      },
+      "EARP": {
+        title: "心象の分析者",
+        oneLine: "感情を分析し、現実へ活かし、自分の人生へ重ねる読者。",
+        desc: "登場人物や書き手の感情を読み解き、自分自身の経験や価値観と照らし合わせる。本を、自分の心を理解し、人生を見直すための鏡として扱う。",
+        traits: ["心理描写を深く読む", "自分の感情と重ねる", "気づきを自己理解へつなげる"]
+      },
+      "EAIS": {
+        title: "余韻の対話官",
+        oneLine: "感情を分析し、余韻を深め、人と語り合う読者。",
+        desc: "作品のテーマや、心が動いた理由を考え続ける。感想や解釈を人と交換し、それぞれ異なる受け取り方に触れることで、作品の余韻をさらに深める。",
+        traits: ["テーマや心理を考察する", "感想の違いを楽しむ", "対話によって作品を味わい直す"]
+      },
+      "EAIP": {
+        title: "感性の守護者",
+        oneLine: "感情を分析し、余韻を深め、自分の中で育てる読者。",
+        desc: "作品から受け取った感情や意味を、自分だけのものとして静かに考え続ける。急いで言葉にしたり他者の解釈へ触れたりせず、自分の感性を守りながら理解を育てる。",
+        traits: ["自分なりの解釈を大切にする", "感情について静かに考える", "再読によって意味を深める"]
+      },
+      "EFRS": {
+        title: "響応の照灯士",
+        oneLine: "感情を味わい、現実へ活かし、人と分かち合う読者。",
+        desc: "本から受け取った感動や活力を、現実の行動へ持ち帰る。自分の中に灯った気持ちを人にも伝え、誰かの心や日常にも新しい灯をともそうとする。",
+        traits: ["感動を素直に受け止める", "前向きな行動へつなげる", "心が動いた体験を人へ届ける"]
+      },
+      "EFRP": {
+        title: "内根の涵養家",
+        oneLine: "感情を味わい、現実へ活かし、自分の支えにする読者。",
+        desc: "本から受け取った感情を、自分の心を養う栄養として取り込む。心に残った言葉や場面を日々の支えとし、時間をかけて自分の内面へ根づかせていく。",
+        traits: ["本を心の支えにする", "感情を静かな成長へつなげる", "大切な言葉を自分の中で育てる"]
+      },
+      "EFIS": {
+        title: "祝祭の唱和者",
+        oneLine: "感情を味わい、余韻を抱え、人と共鳴する読者。",
+        desc: "作品の世界へ入り込み、登場人物と一緒に笑い、泣き、心を動かされる。その感動を同じ本を愛する人と語り合い、作品への喜びを分かち合う。",
+        traits: ["感情移入しながら読む", "好きな作品について語り合う", "共感の輪が広がることを楽しむ"]
+      },
+      "EFIP": {
+        title: "永遠の逗留者",
+        oneLine: "感情を味わい、余韻を抱え、自分だけの世界として大切にする読者。",
+        desc: "本の世界へ深く没入し、読み終えたあともその場所に心を留め続ける。感想を急いでまとめず、自分だけの記憶や心の居場所として作品を抱き続ける。",
+        traits: ["物語の世界へ深く浸る", "読後の余韻を長く味わう", "本を何度でも帰れる場所として捉える"]
+      }
+    };
+
+    // --- アプリケーションの状態 ---
+    let currentQuestionIndex = 0;
+    let answers = []; // 各設問の回答スコア（0~3）
+
+    // DOM要素
+    const screenTop = document.getElementById('screen-top');
+    const screenQuiz = document.getElementById('screen-quiz');
+    const screenLoading = document.getElementById('screen-loading');
+    const screenResult = document.getElementById('screen-result');
+
+    const btnStart = document.getElementById('btn-start');
+    const btnBack = document.getElementById('btn-back');
+    const btnShareX = document.getElementById('btn-share-x');
+    const btnCopy = document.getElementById('btn-copy');
+    const btnRestart = document.getElementById('btn-restart');
+
+    const quizProgressText = document.getElementById('quiz-progress-text');
+    const quizProgressPercent = document.getElementById('quiz-progress-percent');
+    const quizProgressBar = document.getElementById('quiz-progress-bar');
+    const quizQuestion = document.getElementById('quiz-question');
+    const quizOptions = document.getElementById('quiz-options');
+    const quizAxisTag = document.getElementById('quiz-axis-tag');
+
+    // イベントリスナー設定
+    btnStart.addEventListener('click', startQuiz);
+    btnBack.addEventListener('click', prevQuestion);
+    btnRestart.addEventListener('click', restartQuiz);
+    btnShareX.addEventListener('click', shareOnX);
+    btnCopy.addEventListener('click', copyResult);
+
+    quizOptions.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const score = parseInt(btn.getAttribute('data-score'), 10);
+        answerQuestion(score);
+      });
+    });
+
+    function startQuiz() {
+      currentQuestionIndex = 0;
+      answers = [];
+      switchScreen(screenTop, screenQuiz);
+      renderQuestion();
+    }
+
+    function switchScreen(fromScreen, toScreen) {
+      fromScreen.classList.add('hidden');
+      toScreen.classList.remove('hidden');
+      toScreen.classList.remove('fade-enter-active');
+      void toScreen.offsetWidth;
+      toScreen.classList.add('fade-enter-active');
+    }
+
+    function renderQuestion() {
+      const q = QUESTIONS[currentQuestionIndex];
+      const total = QUESTIONS.length;
+      const progressRatio = (currentQuestionIndex / total) * 100;
+
+      quizProgressText.innerText = `Q${currentQuestionIndex + 1} / ${total}`;
+      quizProgressPercent.innerText = `${Math.round(progressRatio)}%`;
+      quizProgressBar.style.width = `${progressRatio}%`;
+
+      quizQuestion.innerText = q.text;
+      quizAxisTag.innerText = q.label;
+
+      btnBack.disabled = (currentQuestionIndex === 0);
+    }
+
+    function answerQuestion(score) {
+      answers[currentQuestionIndex] = score;
+
+      if (currentQuestionIndex < QUESTIONS.length - 1) {
+        currentQuestionIndex++;
+        quizQuestion.classList.add('opacity-0');
+        setTimeout(() => {
+          renderQuestion();
+          quizQuestion.classList.remove('opacity-0');
+        }, 150);
+      } else {
+        showLoading();
+      }
+    }
+
+    function prevQuestion() {
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        renderQuestion();
+      }
+    }
+
+    function showLoading() {
+      switchScreen(screenQuiz, screenLoading);
+      setTimeout(() => {
+        calculateAndShowResult();
+      }, 1800);
+    }
+
+    function calculateAndShowResult() {
+      const scores = {
+        K: { raw: 0, weighted: 0, highWeighted: 0, highRaw: 0 },
+        E: { raw: 0, weighted: 0, highWeighted: 0, highRaw: 0 },
+        A: { raw: 0, weighted: 0, highWeighted: 0, highRaw: 0 },
+        F: { raw: 0, weighted: 0, highWeighted: 0, highRaw: 0 },
+        R: { raw: 0, weighted: 0, highWeighted: 0, highRaw: 0 },
+        I: { raw: 0, weighted: 0, highWeighted: 0, highRaw: 0 },
+        S: { raw: 0, weighted: 0, highWeighted: 0, highRaw: 0 },
+        P: { raw: 0, weighted: 0, highWeighted: 0, highRaw: 0 }
+      };
+
+      answers.forEach((ansScore, idx) => {
+        const q = QUESTIONS[idx];
+        const target = q.target;
+        const weight = q.weight;
+
+        let baseScore = 0;
+        if (ansScore === 3) baseScore = 3;
+        else if (ansScore === 2) baseScore = 2;
+
+        let oppTarget = getOppositeChar(target);
+        let oppBaseScore = 0;
+        if (ansScore === 1) oppBaseScore = 2;
+        else if (ansScore === 0) oppBaseScore = 3;
+
+        scores[target].weighted += baseScore * weight;
+        scores[target].raw += ansScore;
+        if (weight === 2) {
+          scores[target].highWeighted += baseScore * weight;
+          scores[target].highRaw += ansScore;
+        }
+
+        if (oppBaseScore > 0) {
+          scores[oppTarget].weighted += oppBaseScore * weight;
+          scores[oppTarget].raw += (3 - ansScore);
+          if (weight === 2) {
+            scores[oppTarget].highWeighted += oppBaseScore * weight;
+            scores[oppTarget].highRaw += (3 - ansScore);
+          }
+        }
+      });
+
+      const axis1 = resolveAxis('K', 'E', scores);
+      const axis2 = resolveAxis('A', 'F', scores);
+      const axis3 = resolveAxis('R', 'I', scores);
+      const axis4 = resolveAxis('S', 'P', scores);
+
+      const resultCode = `${axis1}${axis2}${axis3}${axis4}`;
+      displayResult(resultCode, scores);
+    }
+
+    function getOppositeChar(char) {
+      const pair = { 'K':'E', 'E':'K', 'A':'F', 'F':'A', 'R':'I', 'I':'R', 'S':'P', 'P':'S' };
+      return pair[char];
+    }
+
+    function resolveAxis(charLeft, charRight, scores) {
+      const left = scores[charLeft];
+      const right = scores[charRight];
+
+      if (left.weighted > right.weighted) return charLeft;
+      if (right.weighted > left.weighted) return charRight;
+
+      if (left.highWeighted > right.highWeighted) return charLeft;
+      if (right.highWeighted > left.highWeighted) return charRight;
+
+      if (left.raw > right.raw) return charLeft;
+      if (right.raw > left.raw) return charRight;
+
+      return charLeft;
+    }
+
+    function displayResult(code, scores) {
+      const data = TYPES_DATA[code] || TYPES_DATA["KARS"];
+
+      document.getElementById('result-code').innerText = code;
+      document.getElementById('result-title').innerText = data.title;
+      document.getElementById('result-one-line').innerText = data.oneLine;
+      document.getElementById('result-description').innerText = data.desc;
+
+      const traitsUl = document.getElementById('result-traits');
+      traitsUl.innerHTML = '';
+      data.traits.forEach(trait => {
+        const li = document.createElement('li');
+        li.innerText = trait;
+        traitsUl.appendChild(li);
+      });
+
+      updateAxisBars(scores);
+      switchScreen(screenLoading, screenResult);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function updateAxisBars(scores) {
+      updateSingleBar('k', 'e', scores.K.weighted, scores.E.weighted);
+      updateSingleBar('a', 'f', scores.A.weighted, scores.F.weighted);
+      updateSingleBar('r', 'i', scores.R.weighted, scores.I.weighted);
+      updateSingleBar('s', 'p', scores.S.weighted, scores.P.weighted);
+    }
+
+    function updateSingleBar(leftKey, rightKey, scoreLeft, scoreRight) {
+      const total = scoreLeft + scoreRight || 1;
+      const leftPercent = Math.round((scoreLeft / total) * 100);
+
+      const barLeft = document.getElementById(`bar-${leftKey}`);
+      const barRight = document.getElementById(`bar-${rightKey}`);
+
+      barLeft.style.width = `${leftPercent}%`;
+      barRight.style.width = `${100 - leftPercent}%`;
+
+      const leftLabel = document.getElementById(`axis-${leftKey}-label`);
+      const rightLabel = document.getElementById(`axis-${rightKey}-label`);
+
+      if (scoreLeft >= scoreRight) {
+        barLeft.className = "bg-book-primary h-full transition-all duration-500";
+        barRight.className = "bg-book-border h-full transition-all duration-500";
+        leftLabel.className = "text-book-primary font-bold";
+        rightLabel.className = "text-book-muted font-normal";
+      } else {
+        barLeft.className = "bg-book-border h-full transition-all duration-500";
+        barRight.className = "bg-book-primary h-full transition-all duration-500";
+        leftLabel.className = "text-book-muted font-normal";
+        rightLabel.className = "text-book-primary font-bold";
+      }
+    }
+
+    function restartQuiz() {
+      switchScreen(screenResult, screenTop);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function shareOnX() {
+      const code = document.getElementById('result-code').innerText;
+      const title = document.getElementById('result-title').innerText;
+      const oneLine = document.getElementById('result-one-line').innerText;
+      const url = window.location.href;
+
+      const text = `【読書の価値観診断】\n\n私の読書タイプは\n「${code}：${title}」でした。\n\n${oneLine}\n\nあなたは、本とどんな関係を築いていますか？\n\n#読書の価値観診断\n`;
+      const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+
+      window.open(shareUrl, '_blank');
+    }
+
+    function copyResult() {
+      const code = document.getElementById('result-code').innerText;
+      const title = document.getElementById('result-title').innerText;
+      const oneLine = document.getElementById('result-one-line').innerText;
+      const text = `【読書の価値観診断】私の読書タイプは「${code}：${title}」です。（${oneLine}）`;
+
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        showToast('診断結果をコピーしました');
+      } catch (err) {
+        showToast('コピーに失敗しました');
+      }
+      document.body.removeChild(textarea);
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toast-message');
+      toastMessage.innerText = message;
+
+      toast.classList.remove('opacity-0', 'pointer-events-none');
+      toast.classList.add('opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('opacity-100');
+        toast.classList.add('opacity-0', 'pointer-events-none');
+      }, 2500);
+    }
+  </script>
 </body>
 </html>
