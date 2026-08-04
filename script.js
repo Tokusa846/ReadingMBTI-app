@@ -156,7 +156,6 @@
     const quizProgressBar = document.getElementById('quiz-progress-bar');
     const quizQuestion = document.getElementById('quiz-question');
     const quizOptions = document.getElementById('quiz-options');
-    const quizAxisTag = document.getElementById('quiz-axis-tag');
 
     // イベントリスナー設定
     btnStart.addEventListener('click', startQuiz);
@@ -197,7 +196,6 @@
       quizProgressBar.style.width = `${progressRatio}%`;
 
       quizQuestion.innerText = q.text;
-      quizAxisTag.innerText = q.label;
 
       btnBack.disabled = (currentQuestionIndex === 0);
     }
