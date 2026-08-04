@@ -152,7 +152,6 @@
     const btnRestart = document.getElementById('btn-restart');
 
     const quizProgressText = document.getElementById('quiz-progress-text');
-    const quizProgressPercent = document.getElementById('quiz-progress-percent');
     const quizProgressBar = document.getElementById('quiz-progress-bar');
     const quizQuestion = document.getElementById('quiz-question');
     const quizOptions = document.getElementById('quiz-options');
@@ -192,7 +191,6 @@
       const progressRatio = (currentQuestionIndex / total) * 100;
 
       quizProgressText.innerText = `Q${currentQuestionIndex + 1} / ${total}`;
-      quizProgressPercent.innerText = `${Math.round(progressRatio)}%`;
       quizProgressBar.style.width = `${progressRatio}%`;
 
       quizQuestion.innerText = q.text;
