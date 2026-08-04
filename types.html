@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>読書価値観 16タイプ一覧 | Reading Values Catalogue</title>
+
+  <!-- Tailwind CSS & Google Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Shippori Mincho"', 'serif'],
+            sans: ['"Zen Kaku Gothic New"', 'sans-serif'],
+          },
+          colors: {
+            book: {
+              bg: '#f8f6f0',
+              card: '#ffffff',
+              primary: '#2c3e35',
+              accent: '#c59b27',
+              text: '#2b2b2b',
+              muted: '#6b7280',
+              border: '#e5e0d8',
+              lightBg: '#f3efe6',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #f8f6f0;
+      color: #2b2b2b;
+      font-family: "Zen Kaku Gothic New", sans-serif;
+    }
+    .font-mincho {
+      font-family: "Shippori Mincho", serif;
+    }
+    .type-card {
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .type-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px -6px rgba(44, 62, 53, 0.12);
+    }
+    .badge-axis {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col justify-between p-4 sm:p-8">
+
+  <!-- ヘッダー -->
+  <header class="w-full max-w-6xl mx-auto py-4 border-b border-book-border flex flex-wrap justify-between items-center gap-4 mb-8">
+    <div class="flex items-center gap-3">
+      <div class="p-2.5 bg-book-primary text-white rounded-xl shadow-sm">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+        </svg>
+      </div>
+      <div>
+        <h1 class="font-serif font-bold text-xl sm:text-2xl text-book-primary tracking-wider">読書価値観 16タイプ図鑑</h1>
+        <p class="text-xs text-book-muted">Reading Values Profile Directory</p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <button id="btn-open-axis-guide" class="text-xs sm:text-sm px-3.5 py-2 rounded-xl border border-book-border hover:border-book-primary hover:bg-book-lightBg text-book-primary font-medium transition-all flex items-center gap-1.5 bg-book-card shadow-sm">
+        <svg class="w-4 h-4 text-book-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        4つの軸の見方
+      </button>
+      <button id="btn-compare-mode" class="text-xs sm:text-sm px-3.5 py-2 rounded-xl bg-book-primary text-white font-medium hover:bg-opacity-90 transition-all flex items-center gap-1.5 shadow-sm">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+        2タイプ比較
+      </button>
+    </div>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <main class="w-full max-w-6xl mx-auto flex-grow space-y-6">
+
+    <!-- 概要ヒーロー -->
+    <section class="bg-book-card rounded-2xl p-6 sm:p-8 shadow-sm border border-book-border relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-32 h-32 bg-book-lightBg rounded-full -mr-10 -mt-10 opacity-50 pointer-events-none"></div>
+      
+      <div class="max-w-3xl space-y-3">
+        <span class="text-xs font-bold tracking-widest text-book-accent uppercase">Complete Type Catalog</span>
+        <h2 class="text-2xl sm:text-3xl font-serif font-bold text-book-primary">
+          本との関わり方が拓く、16の「知的職能」
+        </h2>
+        <p class="text-xs sm:text-sm text-book-muted leading-relaxed">
+          読書とは単に文字を読むことではなく、知識との出会い、物語への没入、現実への応用、人との共有という一連の体験です。
+          ここでは4軸の特性（K/E, A/F, R/I, S/P）の組み合わせから導かれる16の読書職能を体系的にまとめることができます。
+        </p>
+      </div>
+
+      <!-- 4群カテゴリータグ -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-6 border-t border-book-border/60 text-xs">
+        <div class="p-3 bg-book-bg rounded-xl border border-book-border/60">
+          <span class="font-bold text-book-primary block mb-0.5">思考・構築グループ</span>
+          <span class="text-[11px] text-book-muted">知識(K) × 分析(A)</span>
+        </div>
+        <div class="p-3 bg-book-bg rounded-xl border border-book-border/60">
+          <span class="font-bold text-book-primary block mb-0.5">知恵・実践グループ</span>
+          <span class="text-[11px] text-book-muted">知識(K) × 感性(F)</span>
+        </div>
+        <div class="p-3 bg-book-bg rounded-xl border border-book-border/60">
+          <span class="font-bold text-book-primary block mb-0.5">心象・探求グループ</span>
+          <span class="text-[11px] text-book-muted">感情(E) × 分析(A)</span>
+        </div>
+        <div class="p-3 bg-book-bg rounded-xl border border-book-border/60">
+          <span class="font-bold text-book-primary block mb-0.5">物語・共鳴グループ</span>
+          <span class="text-[11px] text-book-muted">感情(E) × 感性(F)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- フィルター＆表示切替バー -->
+    <section class="bg-book-card rounded-xl p-4 shadow-sm border border-book-border flex flex-col md:flex-row justify-between gap-4 items-center">
+      
+      <!-- カテゴリフィルター -->
+      <div class="flex items-center gap-1.5 overflow-x-auto w-full md:w-auto pb-1 md:pb-0 text-xs">
+        <button class="filter-btn active px-3.5 py-2 rounded-lg bg-book-primary text-white font-medium transition-all whitespace-nowrap" data-filter="all">すべて (16)</button>
+        <button class="filter-btn px-3.5 py-2 rounded-lg bg-book-bg text-book-muted hover:text-book-text font-medium transition-all whitespace-nowrap border border-book-border" data-filter="K">思考派 (K)</button>
+        <button class="filter-btn px-3.5 py-2 rounded-lg bg-book-bg text-book-muted hover:text-book-text font-medium transition-all whitespace-nowrap border border-book-border" data-filter="E">感情派 (E)</button>
+        <button class="filter-btn px-3.5 py-2 rounded-lg bg-book-bg text-book-muted hover:text-book-text font-medium transition-all whitespace-nowrap border border-book-border" data-filter="R">現実活用 (R)</button>
+        <button class="filter-btn px-3.5 py-2 rounded-lg bg-book-bg text-book-muted hover:text-book-text font-medium transition-all whitespace-nowrap border border-book-border" data-filter="S">対話・共有 (S)</button>
+      </div>
+
+      <!-- 検索＆ビュー切替 -->
+      <div class="flex items-center gap-3 w-full md:w-auto">
+        <div class="relative flex-grow md:w-64">
+          <input type="text" id="type-search-input" placeholder="タイプ名やコード、特徴で検索..." class="w-full text-xs pl-8 pr-3 py-2 bg-book-bg rounded-lg border border-book-border focus:outline-none focus:border-book-primary text-book-text">
+          <svg class="w-4 h-4 text-book-muted absolute left-2.5 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        </div>
+
+        <div class="flex items-center bg-book-bg p-1 rounded-lg border border-book-border text-xs shrink-0">
+          <button id="view-grid-btn" class="p-1.5 rounded bg-book-card shadow-sm text-book-primary font-medium" title="グリッド表示">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+          </button>
+          <button id="view-matrix-btn" class="p-1.5 rounded text-book-muted hover:text-book-text" title="マトリクス軸表示">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 16タイプグリッド表示コンテナ -->
+    <section id="view-grid-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <!-- JavaScriptで動的生成 -->
+    </section>
+
+    <!-- マトリクス軸表示コンテナ (初期非表示) -->
+    <section id="view-matrix-container" class="hidden bg-book-card rounded-2xl p-6 shadow-sm border border-book-border space-y-6">
+      <div class="text-center max-w-lg mx-auto mb-4">
+        <h3 class="font-serif font-bold text-lg text-book-primary">4軸マトリクス分布マップ</h3>
+        <p class="text-xs text-book-muted">縦軸：目的(K) / 感情(E) × 横軸：構造(A) / 感性(F)</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 relative">
+        <!-- Q1: K x A -->
+        <div class="bg-book-lightBg/40 rounded-xl p-4 border border-book-border/80">
+          <div class="flex justify-between items-center mb-3 border-b border-book-border pb-2">
+            <span class="text-xs font-bold text-book-primary">【KA】思考・分析タイプ</span>
+            <span class="text-[10px] bg-book-primary text-white px-2 py-0.5 rounded">Knowledge × Analyze</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2" id="matrix-ka"></div>
+        </div>
+
+        <!-- Q2: K x F -->
+        <div class="bg-book-lightBg/40 rounded-xl p-4 border border-book-border/80">
+          <div class="flex justify-between items-center mb-3 border-b border-book-border pb-2">
+            <span class="text-xs font-bold text-book-primary">【KF】知恵・感性タイプ</span>
+            <span class="text-[10px] bg-book-accent text-white px-2 py-0.5 rounded">Knowledge × Feel</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2" id="matrix-kf"></div>
+        </div>
+
+        <!-- Q3: E x A -->
+        <div class="bg-book-lightBg/40 rounded-xl p-4 border border-book-border/80">
+          <div class="flex justify-between items-center mb-3 border-b border-book-border pb-2">
+            <span class="text-xs font-bold text-book-primary">【EA】心象・探求タイプ</span>
+            <span class="text-[10px] bg-amber-700 text-white px-2 py-0.5 rounded">Emotion × Analyze</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2" id="matrix-ea"></div>
+        </div>
+
+        <!-- Q4: E x F -->
+        <div class="bg-book-lightBg/40 rounded-xl p-4 border border-book-border/80">
+          <div class="flex justify-between items-center mb-3 border-b border-book-border pb-2">
+            <span class="text-xs font-bold text-book-primary">【EF】物語・共鳴タイプ</span>
+            <span class="text-[10px] bg-emerald-800 text-white px-2 py-0.5 rounded">Emotion × Feel</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2" id="matrix-ef"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- タイプ詳細モーダル -->
+  <div id="type-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+    <div id="type-modal-content" class="bg-book-card w-full max-w-xl rounded-2xl p-6 sm:p-8 shadow-xl border border-book-border relative max-h-[90vh] overflow-y-auto transform translate-y-4 transition-transform duration-300">
+      
+      <button id="btn-close-modal" class="absolute top-4 right-4 text-book-muted hover:text-book-text p-1.5 rounded-full hover:bg-book-lightBg transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+
+      <div class="flex items-center gap-2 mb-1">
+        <span id="modal-type-code" class="text-xs font-bold tracking-widest text-book-accent uppercase bg-book-lightBg px-2 py-0.5 rounded border border-book-border/60">CODE</span>
+        <span id="modal-type-group" class="text-xs text-book-muted">グループ名</span>
+      </div>
+
+      <h3 id="modal-type-title" class="text-2xl font-serif font-bold text-book-primary mb-3">タイプ名</h3>
+      
+      <div class="bg-book-bg p-3.5 rounded-xl border border-book-border/60 mb-5">
+        <p id="modal-type-oneline" class="text-xs sm:text-sm font-semibold text-book-primary leading-relaxed">ワンフレーズ要約</p>
+      </div>
+
+      <div class="space-y-4 text-xs sm:text-sm text-book-text mb-6">
+        <div>
+          <h4 class="font-bold text-book-primary mb-1 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-book-accent"></span>本質と読書姿勢
+          </h4>
+          <p id="modal-type-desc" class="text-book-muted leading-relaxed pl-3">解説テキスト</p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-book-primary mb-1 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-book-accent"></span>主な特徴・強み
+          </h4>
+          <ul id="modal-type-traits" class="space-y-1 text-book-muted list-disc list-inside pl-3"></ul>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+          <div class="p-3 bg-book-lightBg/50 rounded-xl border border-book-border/40">
+            <h5 class="font-bold text-book-primary text-xs mb-1">おすすめのジャンル</h5>
+            <p id="modal-type-genres" class="text-xs text-book-muted">ジャンル例</p>
+          </div>
+          <div class="p-3 bg-book-lightBg/50 rounded-xl border border-book-border/40">
+            <h5 class="font-bold text-book-primary text-xs mb-1">相性の良い相棒タイプ</h5>
+            <p id="modal-type-partner" class="text-xs text-book-muted">相棒コード</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex gap-2">
+        <button id="btn-modal-compare" class="w-1/2 py-2.5 bg-book-bg hover:bg-book-lightBg text-book-primary border border-book-border font-bold rounded-xl text-xs sm:text-sm transition-all">
+          このタイプと比較する
+        </button>
+        <button id="btn-modal-close" class="w-1/2 py-2.5 bg-book-primary hover:bg-opacity-90 text-white font-bold rounded-xl text-xs sm:text-sm transition-all">
+          閉じる
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4軸ガイドモーダル -->
+  <div id="axis-guide-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="bg-book-card w-full max-w-lg rounded-2xl p-6 shadow-xl border border-book-border relative max-h-[90vh] overflow-y-auto">
+      <button id="btn-close-axis-modal" class="absolute top-4 right-4 text-book-muted hover:text-book-text p-1">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+      <h3 class="font-serif font-bold text-xl text-book-primary mb-4">4つの評価軸ガイド</h3>
+      <div class="space-y-4 text-xs">
+        <div class="p-3 bg-book-bg rounded-xl border border-book-border/60">
+          <div class="flex justify-between font-bold text-book-primary mb-1">
+            <span>K (Knowledge: 知識・目的)</span>
+            <span>E (Emotion: 感情・体験)</span>
+          </div>
+          <p class="text-book-muted">何を得るために本を開くか。「新たな知見や学び」を求めるK派と、「感動や世界観への没入」を求めるE派。</p>
+        </div>
+        <div class="p-3 bg-book-bg rounded-xl border border-book-border/60">
+          <div class="flex justify-between font-bold text-book-primary mb-1">
+            <span>A (Analyze: 構造・分析)</span>
+            <span>F (Feel: 感性・空気)</span>
+          </div>
+          <p class="text-book-muted">どのように文章を読むか。「伏線やロジック、背景」を分解するA派と、「言葉の響きや雰囲気」を味わうF派。</p>
+        </div>
+        <div class="p-3 bg-book-bg rounded-xl border border-book-border/60">
+          <div class="flex justify-between font-bold text-book-primary mb-1">
+            <span>R (Realize: 現実・実践)</span>
+            <span>I (Immerse: 余韻・思考)</span>
+          </div>
+          <p class="text-book-muted">読後にどう行動するか。「日常や仕事の行動へ還元」するR派と、「心の中でじっくり反芻」するI派。</p>
+        </div>
+        <div class="p-3 bg-book-bg rounded-xl border border-book-border/60">
+          <div class="flex justify-between font-bold text-book-primary mb-1">
+            <span>S (Share: 共有・対話)</span>
+            <span>P (Personal: 個人・静寂)</span>
+          </div>
+          <p class="text-book-muted">感想をどう扱うか。「人と語り合いおすすめする」S派と、「自分だけの秘めた体験にする」P派。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2タイプ比較モーダル -->
+  <div id="compare-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="bg-book-card w-full max-w-3xl rounded-2xl p-6 sm:p-8 shadow-xl border border-book-border relative max-h-[90vh] overflow-y-auto">
+      <button id="btn-close-compare-modal" class="absolute top-4 right-4 text-book-muted hover:text-book-text p-1">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+
+      <h3 class="font-serif font-bold text-xl text-book-primary mb-4 text-center">2タイプ対比・比較</h3>
+      
+      <!-- セレクトボックス -->
+      <div class="grid grid-cols-2 gap-4 mb-6">
+        <div>
+          <label class="block text-xs font-bold text-book-muted mb-1">タイプ A</label>
+          <select id="select-type-a" class="w-full text-xs p-2.5 bg-book-bg rounded-xl border border-book-border font-bold text-book-primary"></select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-book-muted mb-1">タイプ B</label>
+          <select id="select-type-b" class="w-full text-xs p-2.5 bg-book-bg rounded-xl border border-book-border font-bold text-book-primary"></select>
+        </div>
+      </div>
+
+      <!-- 比較表示エリア -->
+      <div id="compare-content" class="grid grid-cols-2 gap-4 text-xs">
+        <!-- JSで動的レンダリング -->
+      </div>
+    </div>
+  </div>
+
+  <!-- フッター -->
+  <footer class="w-full max-w-6xl mx-auto py-6 border-t border-book-border text-center text-xs text-book-muted mt-8">
+    <p>© 読書価値観 16タイプ図鑑 | Reading Values Catalogue</p>
+  </footer>
+
+  <script>
+    // 16タイプマスターデータ
+    const TYPES_MASTER = {
+      "KARS": {
+        group: "思考・構築",
+        title: "知の仲介者",
+        oneLine: "知識を分析し、現実へ活かし、人と共有する読者。",
+        desc: "本から得た知識を構造的に理解し、仕事や生活で実践する。さらに自分の学びを整理して人へ伝え、知見を循環させることに喜びを感じる。",
+        traits: ["根拠や仕組みを重視する", "読んだ内容を試したくなる", "人へ分かりやすく説明したくなる"],
+        genres: "ビジネス実用書、社会科学、説得の心理学",
+        partner: "KAIP (相互補完の考察パートナー)"
+      },
+      "KARP": {
+        group: "思考・構築",
+        title: "価値観の設計者",
+        oneLine: "知識を分析し、現実へ活かし、自分の糧にする読者。",
+        desc: "本から得た知識を深く理解し、自分の判断基準や価値観へ組み込む。人へ積極的に共有するより、自分自身を支える確かな土台として蓄積する。",
+        traits: ["納得できるまで考え抜く", "自分の価値観と照らし合わせる", "学びを静かに生活へ取り入れる"],
+        genres: "哲学書、自己啓発（原著）、歴史・伝記",
+        partner: "KAIS (思考を拡張する対話者)"
+      },
+      "KAIS": {
+        group: "思考・構築",
+        title: "視点の案内人",
+        oneLine: "知識を分析し、心に留めながら、人と共有する読者。",
+        desc: "本の背景や構造を探究し、そこから得た新しい視点を人と交換する。すぐ実践することより、考察や対話によって理解を広げることを楽しむ。",
+        traits: ["本同士の関連性を探る", "新しい視点を発見する", "考察を人と熱く語り合う"],
+        genres: "人文書、科学ミステリー、文化人類学",
+        partner: "KARP (静かな思考の同志)"
+      },
+      "KAIP": {
+        group: "思考・構築",
+        title: "孤高の沈思者",
+        oneLine: "知識を分析し、心に留め、自分だけの理解を深める読者。",
+        desc: "情報の表面だけでなく、背景や構造を自分が納得するまで考え続ける。他者の評価を必要とせず、本を思考を深める絶対的な対話相手とする。",
+        traits: ["深読みや再読を好む", "読後も考察を止めない", "自分なりの解を黙々と追求する"],
+        genres: "難解な学術書、思想書、古典文学",
+        partner: "KARS (アウトプットの開拓者)"
+      },
+      "KFRS": {
+        group: "知恵・実践",
+        title: "共感の伝播者",
+        oneLine: "知識を感じ取り、現実へ活かし、人へ届ける読者。",
+        desc: "知識を理屈だけでなく、具体的なエピソードや体験談から受け取る。心に残った学びを日常で即実践し、その価値を情熱をもって人へ勧める。",
+        traits: ["ストーリーから学びを得る", "直感的に良いと感じたものを試す", "本の魅力を魅力的に語る"],
+        genres: "ノンフィクション、エッセイ実用、話題のベストセラー",
+        partner: "KFIP (深い余韻の共有相手)"
+      },
+      "KFRP": {
+        group: "知恵・実践",
+        title: "日常の耕作者",
+        oneLine: "知識を感じ取り、現実へ活かし、自分の中で育てる読者。",
+        desc: "本から得た気づきを自分の日常へ少しずつ取り入れる。劇的な変化より、心に触れた言葉によって自分の生活や習慣を静かに耕す。",
+        traits: ["心に響く言葉を大切にする", "小さな行動変化を重ねる", "本を生活の静かな指針にする"],
+        genres: "暮らしのエッセイ、健康・習慣術、実用書",
+        partner: "KFIS (共感の広がりをもたらす人)"
+      },
+      "KFIS": {
+        group: "知恵・実践",
+        title: "情感の語り部",
+        oneLine: "知識を感じ取り、心に留めながら、人と分かち合う読者。",
+        desc: "本に含まれる知識だけでなく、文章の雰囲気や作者の思いを受け取る。すぐ行動するより、印象に残った部分を人と語り合い味わい直す。",
+        traits: ["美しい表現や名言を重視する", "感動を誰かと共有したい", "対話を通じて理解を深める"],
+        genres: "対談集、人物ルポルタージュ、文芸エッセイ",
+        partner: "KFRP (静かな受け止め役)"
+      },
+      "KFIP": {
+        group: "知恵・実践",
+        title: "言葉の醸造家",
+        oneLine: "知識を感じ取り、心に留め、自分だけの宝物にする読者。",
+        desc: "本から受け取った言葉や気づきを急いで整理せず、自分の中で熟成させる。ふとした瞬間に一節を思い返し、自分だけの意味を見出していく。",
+        traits: ["一言一言の余韻を味わう", "時間を置いて読み返す", "読書体験を自分の中へ秘める"],
+        genres: "詩集、短いコラム集、写真文集",
+        partner: "KFRS (外界へひらいてくれる存在)"
+      },
+      "EARS": {
+        group: "心象・探求",
+        title: "感情の共鳴師",
+        oneLine: "感情を分析し、現実へ活かし、人へ届ける読者。",
+        desc: "心が動いた理由や登場人物の心理を考察し、その気づきを現実の人間関係や生き方へ活かす。受け取った感情を言語化して他者へ伝える。",
+        traits: ["心理描写のロジックを読む", "人間関係のヒントにする", "感情の背景を人に説く"],
+        genres: "心理小説、人間ドキュメント、対人心理学",
+        partner: "EAIP (深く内省するパートナー)"
+      },
+      "EARP": {
+        group: "心象・探求",
+        title: "心象の分析者",
+        oneLine: "感情を分析し、現実へ活かし、自分の人生へ重ねる読者。",
+        desc: "登場人物や書き手の感情を読み解き、自分自身の経験と照らし合わせる。本を自分自身の心を理解し、生き方を見直すための鏡とする。",
+        traits: ["心理的葛藤をリアルに捉える", "自分の経験とリンクさせる", "内面的な成長を求める"],
+        genres: "自伝・回想録、純文学、メンタルヘルス",
+        partner: "EAIS (対話で視野を広げる人)"
+      },
+      "EAIS": {
+        group: "心象・探求",
+        title: "余韻の対話官",
+        oneLine: "感情を分析し、余韻を深め、人と語り合う読者。",
+        desc: "作品のテーマや物語の伏線をロジカルに考察する。感想や解釈を人と交換し、視点や受け取り方の違いに触れることで作品を立体化する。",
+        traits: ["作品の伏線や構造を考察する", "多角的な解釈を楽しむ", "読書会や考察討論が好き"],
+        genres: "考察系ミステリー、SF小説、劇作・シナリオ",
+        partner: "EARP (深い自己探求者)"
+      },
+      "EAIP": {
+        group: "心象・探求",
+        title: "感性の守護者",
+        oneLine: "感情を分析し、余韻を深め、自分の中で育てる読者。",
+        desc: "作品から受け取った感情や意味を、自分だけのものとして静かに考え続ける。他者の解釈に惑わされず、自分の感性を守りながら解釈を育てる。",
+        traits: ["自分だけの解釈を愛する", "静かに作品世界を噛み締める", "言葉にならない余韻を大切にする"],
+        genres: "本格ミステリー、海外純文学、心理ドラマ",
+        partner: "EARS (言葉を与えてくれる人)"
+      },
+      "EFRS": {
+        group: "物語・共鳴",
+        title: "響応の照灯士",
+        oneLine: "感情を味わい、現実へ活かし、人と分かち合う読者。",
+        desc: "本から受け取った感動や活力を現実の行動へ持ち帰る。自分の中に灯った情熱を周囲にも伝え、誰かの心や日常にも希望の灯をともそうとする。",
+        traits: ["感動を力に変えて行動する", "本から得たエネルギーを熱弁する", "人の背中を押す本を贈る"],
+        genres: "感動のエンタメ小説、励ましの言葉集、成功物語",
+        partner: "EFIP (静かに佇む共鳴者)"
+      },
+      "EFRP": {
+        group: "物語・共鳴",
+        title: "内根の涵養家",
+        oneLine: "感情を味わい、現実へ活かし、自分の支えにする読者。",
+        desc: "本から受け取った感情を自分の心を養う栄養として取り込む。心に残った温かい場面や言葉を日々の支えとし、内面を豊かなものにしていく。",
+        traits: ["本を心の拠り所にする", "優しく前向きな変化を好む", "大切な言葉を手帳に留める"],
+        genres: "ほのぼの小説、心温まるエッセイ、絵本",
+        partner: "EFIS (感動を共にする人)"
+      },
+      "EFIS": {
+        group: "物語・共鳴",
+        title: "祝祭の唱和者",
+        oneLine: "感情を味わい、余韻を抱え、人と共鳴する読者。",
+        desc: "作品の世界へ没入し、登場人物と共に笑い、泣く。その圧倒的な感動を同じ本を愛するファンや友人と語り合い、作品の素晴らしさを分かち合う。",
+        traits: ["作品にどっぷり感情移入する", "「推し本」の熱量がすごい", "共感の輪が広がるのを喜ぶ"],
+        genres: "ファンタジー、冒険小説、青春・群像劇",
+        partner: "EFRP (優しく耳を傾ける人)"
+      },
+      "EFIP": {
+        group: "物語・共鳴",
+        title: "永遠の逗留者",
+        oneLine: "感情を味わい、余韻を抱え、自分だけの世界にする読者。",
+        desc: "本の世界へ深く入り込み、読み終えたあともその物語の空気に留まり続ける。感想をまとめることなく、自分だけの特別な記憶として抱きしめる。",
+        traits: ["圧倒的な没入体験を求める", "読後の現実復帰に時間がかかる", "何十回も同じ本を再読する"],
+        genres: "長編ファンタジー、幻想文学、物語詩",
+        partner: "EFRS (現実に引き戻してくれる人)"
+      }
+    };
+
+    let currentFilter = 'all';
+    let currentView = 'grid'; // 'grid' | 'matrix'
+
+    // DOM要素
+    const viewGridContainer = document.getElementById('view-grid-container');
+    const viewMatrixContainer = document.getElementById('view-matrix-container');
+    const searchInput = document.getElementById('type-search-input');
+    
+    const viewGridBtn = document.getElementById('view-grid-btn');
+    const viewMatrixBtn = document.getElementById('view-matrix-btn');
+
+    const typeModal = document.getElementById('type-modal');
+    const axisGuideModal = document.getElementById('axis-guide-modal');
+    const compareModal = document.getElementById('compare-modal');
+
+    // 初期化
+    window.addEventListener('DOMContentLoaded', () => {
+      renderGridView();
+      renderMatrixView();
+      setupCompareSelects();
+    });
+
+    // イベントリスナー
+    searchInput.addEventListener('input', () => {
+      if (currentView === 'grid') renderGridView();
+    });
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => {
+          b.classList.remove('active', 'bg-book-primary', 'text-white');
+          b.classList.add('bg-book-bg', 'text-book-muted', 'border', 'border-book-border');
+        });
+        btn.classList.add('active', 'bg-book-primary', 'text-white');
+        btn.classList.remove('bg-book-bg', 'text-book-muted', 'border', 'border-book-border');
+        currentFilter = btn.getAttribute('data-filter');
+        renderGridView();
+      });
+    });
+
+    viewGridBtn.addEventListener('click', () => {
+      currentView = 'grid';
+      viewGridBtn.className = "p-1.5 rounded bg-book-card shadow-sm text-book-primary font-medium";
+      viewMatrixBtn.className = "p-1.5 rounded text-book-muted hover:text-book-text";
+      viewGridContainer.classList.remove('hidden');
+      viewMatrixContainer.classList.add('hidden');
+    });
+
+    viewMatrixBtn.addEventListener('click', () => {
+      currentView = 'matrix';
+      viewMatrixBtn.className = "p-1.5 rounded bg-book-card shadow-sm text-book-primary font-medium";
+      viewGridBtn.className = "p-1.5 rounded text-book-muted hover:text-book-text";
+      viewGridContainer.classList.add('hidden');
+      viewMatrixContainer.classList.remove('hidden');
+    });
+
+    // モーダル制御
+    document.getElementById('btn-open-axis-guide').addEventListener('click', () => {
+      axisGuideModal.classList.remove('opacity-0', 'pointer-events-none');
+    });
+    document.getElementById('btn-close-axis-modal').addEventListener('click', () => {
+      axisGuideModal.classList.add('opacity-0', 'pointer-events-none');
+    });
+
+    document.getElementById('btn-close-modal').addEventListener('click', closeModal);
+    document.getElementById('btn-modal-close').addEventListener('click', closeModal);
+    typeModal.addEventListener('click', (e) => {
+      if (e.target === typeModal) closeModal();
+    });
+
+    function closeModal() {
+      typeModal.classList.add('opacity-0', 'pointer-events-none');
+      document.getElementById('type-modal-content').classList.add('translate-y-4');
+    }
+
+    // グリッドレンダリング
+    function renderGridView() {
+      viewGridContainer.innerHTML = '';
+      const query = searchInput.value.trim().toLowerCase();
+
+      Object.keys(TYPES_MASTER).forEach(code => {
+        const data = TYPES_MASTER[code];
+
+        // フィルター
+        if (currentFilter !== 'all' && !code.includes(currentFilter)) return;
+
+        // 検索
+        if (query) {
+          const matchCode = code.toLowerCase().includes(query);
+          const matchTitle = data.title.toLowerCase().includes(query);
+          const matchOneLine = data.oneLine.toLowerCase().includes(query);
+          const matchDesc = data.desc.toLowerCase().includes(query);
+          if (!matchCode && !matchTitle && !matchOneLine && !matchDesc) return;
+        }
+
+        const card = document.createElement('div');
+        card.className = "type-card bg-book-card rounded-2xl p-5 border border-book-border shadow-sm cursor-pointer flex flex-col justify-between hover:border-book-primary/40 relative";
+        card.onclick = () => openTypeModal(code);
+
+        card.innerHTML = `
+          <div>
+            <div class="flex justify-between items-start mb-2">
+              <span class="text-xs font-serif font-bold text-book-accent tracking-widest bg-book-lightBg px-2 py-0.5 rounded border border-book-border/50">${code}</span>
+              <span class="text-[10px] text-book-muted bg-book-bg px-2 py-0.5 rounded">${data.group}</span>
+            </div>
+            <h3 class="text-lg font-serif font-bold text-book-primary mb-1.5">${data.title}</h3>
+            <p class="text-xs text-book-muted leading-relaxed mb-4">${data.oneLine}</p>
+          </div>
+
+          <div>
+            <div class="space-y-1 mb-4 pt-3 border-t border-book-border/40">
+              ${data.traits.map(t => `<div class="text-[11px] text-book-text flex items-center gap-1.5"><span class="w-1 h-1 rounded-full bg-book-accent"></span>${t}</div>`).join('')}
+            </div>
+
+            <div class="flex items-center justify-between text-[11px] font-medium text-book-primary pt-2 border-t border-book-border/30">
+              <span>詳細・特徴を見る</span>
+              <span class="text-book-accent">→</span>
+            </div>
+          </div>
+        `;
+
+        viewGridContainer.appendChild(card);
+      });
+
+      if (viewGridContainer.children.length === 0) {
+        viewGridContainer.innerHTML = `<div class="col-span-full py-12 text-center text-book-muted text-sm bg-book-card rounded-2xl border border-book-border">該当する読書タイプが見つかりませんでした。</div>`;
+      }
+    }
+
+    // マトリクスビュー生成
+    function renderMatrixView() {
+      const ka = document.getElementById('matrix-ka');
+      const kf = document.getElementById('matrix-kf');
+      const ea = document.getElementById('matrix-ea');
+      const ef = document.getElementById('matrix-ef');
+
+      Object.keys(TYPES_MASTER).forEach(code => {
+        const data = TYPES_MASTER[code];
+        const item = document.createElement('button');
+        item.className = "p-2.5 bg-book-card rounded-xl border border-book-border hover:border-book-primary text-left transition-all hover:shadow-sm";
+        item.onclick = () => openTypeModal(code);
+        item.innerHTML = `
+          <div class="text-[10px] font-bold text-book-accent">${code}</div>
+          <div class="text-xs font-serif font-bold text-book-primary truncate">${data.title}</div>
+        `;
+
+        if (code.startsWith('KA')) ka.appendChild(item);
+        else if (code.startsWith('KF')) kf.appendChild(item);
+        else if (code.startsWith('EA')) ea.appendChild(item);
+        else if (code.startsWith('EF')) ef.appendChild(item);
+      });
+    }
+
+    // モーダル詳細表示
+    function openTypeModal(code) {
+      const data = TYPES_MASTER[code];
+      if (!data) return;
+
+      document.getElementById('modal-type-code').innerText = code;
+      document.getElementById('modal-type-group').innerText = `${data.group}グループ`;
+      document.getElementById('modal-type-title').innerText = data.title;
+      document.getElementById('modal-type-oneline').innerText = data.oneLine;
+      document.getElementById('modal-type-desc').innerText = data.desc;
+      document.getElementById('modal-type-genres').innerText = data.genres;
+      document.getElementById('modal-type-partner').innerText = data.partner;
+
+      const traitsUl = document.getElementById('modal-type-traits');
+      traitsUl.innerHTML = data.traits.map(t => `<li>${t}</li>`).join('');
+
+      document.getElementById('btn-modal-compare').onclick = () => {
+        closeModal();
+        openCompareModalWith(code);
+      };
+
+      typeModal.classList.remove('opacity-0', 'pointer-events-none');
+      document.getElementById('type-modal-content').classList.remove('translate-y-4');
+    }
+
+    // 比較モーダル制御
+    const selectA = document.getElementById('select-type-a');
+    const selectB = document.getElementById('select-type-b');
+    const btnCompareMode = document.getElementById('btn-compare-mode');
+    const btnCloseCompareModal = document.getElementById('btn-close-compare-modal');
+
+    btnCompareMode.addEventListener('click', () => {
+      compareModal.classList.remove('opacity-0', 'pointer-events-none');
+      renderCompareContent();
+    });
+
+    btnCloseCompareModal.addEventListener('click', () => {
+      compareModal.classList.add('opacity-0', 'pointer-events-none');
+    });
+
+    function setupCompareSelects() {
+      const codes = Object.keys(TYPES_MASTER);
+      codes.forEach((code, idx) => {
+        const optA = document.createElement('option');
+        optA.value = code;
+        optA.innerText = `${code} : ${TYPES_MASTER[code].title}`;
+        if (idx === 0) optA.selected = true;
+        selectA.appendChild(optA);
+
+        const optB = document.createElement('option');
+        optB.value = code;
+        optB.innerText = `${code} : ${TYPES_MASTER[code].title}`;
+        if (idx === 1) optB.selected = true;
+        selectB.appendChild(optB);
+      });
+
+      selectA.addEventListener('change', renderCompareContent);
+      selectB.addEventListener('change', renderCompareContent);
+    }
+
+    function openCompareModalWith(codeA) {
+      selectA.value = codeA;
+      // bには違うものを選択
+      const codes = Object.keys(TYPES_MASTER);
+      const other = codes.find(c => c !== codeA) || codes[0];
+      selectB.value = other;
+
+      compareModal.classList.remove('opacity-0', 'pointer-events-none');
+      renderCompareContent();
+    }
+
+    function renderCompareContent() {
+      const codeA = selectA.value;
+      const codeB = selectB.value;
+      const a = TYPES_MASTER[codeA];
+      const b = TYPES_MASTER[codeB];
+      const container = document.getElementById('compare-content');
+
+      container.innerHTML = `
+        <div class="bg-book-bg p-4 rounded-xl border border-book-border/80 space-y-3">
+          <div class="text-xs font-bold text-book-accent">${codeA}</div>
+          <div class="font-serif font-bold text-base text-book-primary">${a.title}</div>
+          <p class="text-book-muted leading-relaxed">${a.oneLine}</p>
+          <div class="pt-2 border-t border-book-border/60">
+            <span class="font-bold text-book-primary block mb-1">主な特徴</span>
+            <ul class="list-disc list-inside space-y-0.5 text-book-muted">
+              ${a.traits.map(t => `<li>${t}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+
+        <div class="bg-book-bg p-4 rounded-xl border border-book-border/80 space-y-3">
+          <div class="text-xs font-bold text-book-accent">${codeB}</div>
+          <div class="font-serif font-bold text-base text-book-primary">${b.title}</div>
+          <p class="text-book-muted leading-relaxed">${b.oneLine}</p>
+          <div class="pt-2 border-t border-book-border/60">
+            <span class="font-bold text-book-primary block mb-1">主な特徴</span>
+            <ul class="list-disc list-inside space-y-0.5 text-book-muted">
+              ${b.traits.map(t => `<li>${t}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
