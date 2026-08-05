@@ -1,20 +1,21 @@
-body {
-  background-color: #f8f6f0;
-  color: #2b2b2b;
-  font-family: "Zen Kaku Gothic New", sans-serif;
-}
-.font-mincho {
-  font-family: "Shippori Mincho", serif;
-}
-.type-card {
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.type-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
-}
-.filter-btn.active {
-  background-color: #2c3e35;
-  color: #ffffff;
-  border-color: #2c3e35;
-}
+
+ body {
+      background-color: #f8f6f0;
+      color: #2b2b2b;
+      font-family: "Zen Kaku Gothic New", sans-serif;
+    }
+    .font-mincho {
+      font-family: "Shippori Mincho", serif;
+    }
+    .type-card {
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .type-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+    }
+    .filter-btn.active {
+      background-color: #2c3e35;
+      color: #ffffff;
+      border-color: #2c3e35;
+    }
