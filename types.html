@@ -69,6 +69,20 @@
 
   </main>
 
+  <!-- 詳細表示用モーダル -->
+  <div id="modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-200">
+    <div id="modal-container" class="bg-book-card rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-book-border p-6 sm:p-8 relative transform scale-95 transition-transform duration-200">
+      
+      <!-- 閉じるボタン -->
+      <button id="modal-close" class="absolute top-4 right-4 text-book-muted hover:text-book-primary p-2 rounded-full hover:bg-book-bg transition-all">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+
+      <!-- 動的挿入コンテンツ -->
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
   <!-- フッター -->
   <footer class="w-full max-w-6xl py-6 border-t border-book-border text-center text-xs text-book-muted mt-8">
     <p>© 読書の価値観診断 | Reading Values Profile</p>
