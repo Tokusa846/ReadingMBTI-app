@@ -404,11 +404,17 @@ function showToast(message) {
   }, 2500);
 }
 
-const apiTestButton = document.getElementById("api-test-button");
-const apiTestMessage = document.getElementById("api-test-message");
-const apiTestResult = document.getElementById("api-test-result");
+// --- APIテスト用のコード ---
+document.addEventListener("DOMContentLoaded", () => {
+  const apiTestButton = document.getElementById("api-test-button");
+  const apiTestMessage = document.getElementById("api-test-message");
+  const apiTestResult = document.getElementById("api-test-result");
 
-if (apiTestButton && apiTestMessage && apiTestResult) {
+  if (!apiTestButton || !apiTestMessage || !apiTestResult) {
+    console.error("APIテスト用のHTML要素が見つかりません。");
+    return;
+  }
+
   apiTestButton.addEventListener("click", async () => {
     const message = apiTestMessage.value.trim();
 
@@ -435,9 +441,11 @@ if (apiTestButton && apiTestMessage && apiTestResult) {
         throw new Error(data.error ?? "通信に失敗しました。");
       }
 
-      apiTestResult.textContent = data.reply;
+      apiTestResult.textContent =
+        data.reply ?? "返答を取得できませんでした。";
     } catch (error) {
-      console.error(error);
+      console.error("API通信エラー:", error);
+
       apiTestResult.textContent =
         error instanceof Error
           ? error.message
@@ -446,4 +454,4 @@ if (apiTestButton && apiTestMessage && apiTestResult) {
       apiTestButton.disabled = false;
     }
   });
-}
+});
