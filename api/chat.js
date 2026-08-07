@@ -1,13 +1,17 @@
+// Import Conductor_Prompts
 import { conductorCore } from "../prompts/Conductor_core.js";
 import { conductorK } from "../prompts/type-K.js";
+
 
 export async function POST(request) {
   try {
     const body = await request.json();
     const message = body.message?.trim();
 
+    // 診断結果のユーザータイプを設定
     const userType = "KARS";
 
+    // Combine prompts with user type
     const developerPrompt = `
     ${conductorCore}
 
