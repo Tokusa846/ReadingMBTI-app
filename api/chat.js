@@ -34,7 +34,7 @@ export async function POST(request) {
           input: [
             {
               role: "developer",
-              developer: "Conductor_core_1.0","Conductor_K_1.0"
+              developer: "Conductor_core","Conductor_K_1.0"
             },
             {
               role: "user",
