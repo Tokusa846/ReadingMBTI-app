@@ -1,7 +1,26 @@
+import { conductorCore } from "../prompts/Conductor_core.js";
+import { conductorK } from "../prompts/type-K.js";
+
 export async function POST(request) {
   try {
     const body = await request.json();
     const message = body.message?.trim();
+
+    const userType = "KARS";
+
+    const developerPrompt = `
+    ${conductorCore}
+
+    ${conductorK}
+
+    # 現在のユーザー情報
+
+    診断結果：${userType}
+
+    この診断結果は参考情報としてのみ使用してください。
+    今回のユーザーの発言を最優先してください。
+    `;
+
 
     if (!message) {
       return Response.json(
@@ -33,8 +52,12 @@ export async function POST(request) {
           model: "gpt-5-mini",
           input: [
             {
-              role: "developer",
-              developer: "Conductor_core","Conductor_K_1.0"
+              role: "system",
+              content: conductorCore,
+            },
+            {
+              role: "system",
+              content: conductorK,
             },
             {
               role: "user",
