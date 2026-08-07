@@ -8,6 +8,13 @@ export async function POST(request) {
     const body = await request.json();
     const message = body.message?.trim();
 
+     if (!message) {
+      return Response.json(
+        { error: "メッセージを入力してください。" },
+        { status: 400 }
+      );
+    }
+
     // 診断結果のユーザータイプを設定
     const userType = "KARS";
 
@@ -24,14 +31,6 @@ export async function POST(request) {
     この診断結果は参考情報としてのみ使用してください。
     今回のユーザーの発言を最優先してください。
     `;
-
-
-    if (!message) {
-      return Response.json(
-        { error: "メッセージを入力してください。" },
-        { status: 400 }
-      );
-    }
 
     const apiKey = process.env.OPENAI_API_KEY;
 
@@ -56,12 +55,8 @@ export async function POST(request) {
           model: "gpt-5-mini",
           input: [
             {
-              role: "system",
-              content: conductorCore,
-            },
-            {
-              role: "system",
-              content: conductorK,
+              role: "developer",
+              content: developerPrompt,
             },
             {
               role: "user",
