@@ -53,13 +53,31 @@ export async function POST(request) {
       console.error("OpenAI API error:", data);
 
       return Response.json(
-        { error: "OpenAI APIとの通信に失敗しました。" },
+        {
+          error:
+            data?.error?.message ??
+            "OpenAI APIとの通信に失敗しました。",
+        },
         { status: openAIResponse.status }
       );
     }
 
+    const reply = data.output
+      ?.flatMap((item) => item.content ?? [])
+      .filter((content) => content.type === "output_text")
+      .map((content) => content.text)
+      .join("\n")
+      .trim();
+
+    if (!reply) {
+      console.error(
+        "OpenAI response did not contain output text:",
+        JSON.stringify(data)
+      );
+    }
+
     return Response.json({
-      reply: data.output_text ?? "返答を取得できませんでした。",
+      reply: reply || "返答を取得できませんでした。",
     });
   } catch (error) {
     console.error("Server error:", error);
