@@ -34,8 +34,7 @@ export async function POST(request) {
           input: [
             {
               role: "developer",
-              content:
-                "あなたは穏やかで丁寧な読書コンダクターです。日本語で短く返答してください。",
+              developer: "Conductor_core_1.0","Conductor_K_1.0"
             },
             {
               role: "user",
