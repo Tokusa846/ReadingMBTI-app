@@ -306,6 +306,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
           conversationForm.hidden = true;
 
+          // 最終返答を含めて読書ログとして保存
+          saveReadingLog(reply);
+
         }
 
       } catch (error) {
@@ -351,4 +354,46 @@ function addMessage(sender, text) {
   messageElement.textContent = text;
 
   conversationLog.appendChild(messageElement);
+}
+
+// ----------------------------
+// 読書ログを保存
+// ----------------------------
+
+function saveReadingLog(finalSummary) {
+
+  if (!currentBook) {
+    console.error("保存する本の情報がありません。");
+    return;
+  }
+
+  const readingLog = {
+    id: crypto.randomUUID(),
+    title: currentBook.title,
+    author: currentBook.author,
+    impression: currentBook.impression,
+    conversation: conversationHistory,
+    summary: finalSummary,
+    createdAt: new Date().toISOString()
+  };
+
+  // 既存のログを取得
+  const savedLogs =
+    JSON.parse(
+      localStorage.getItem("readingLogs") || "[]"
+    );
+
+  // 新しいログを追加
+  savedLogs.push(readingLog);
+
+  // localStorageへ保存
+  localStorage.setItem(
+    "readingLogs",
+    JSON.stringify(savedLogs)
+  );
+
+  console.log(
+    "読書ログを保存しました：",
+    readingLog
+  );
 }
