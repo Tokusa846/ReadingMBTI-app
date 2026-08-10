@@ -83,15 +83,25 @@ ${impression}
       });
 
 
-      const data = await response.json();
+      const responseText = await response.text();
 
+      console.log("APIステータス:", response.status);
+      console.log("APIからの生データ:", responseText);
+
+      let data;
+
+      try {
+        data = JSON.parse(responseText);
+      } catch (error) {
+        throw new Error(
+          `APIからJSON以外の返答が返されました：${responseText}`
+        );
+      }
 
       if (!response.ok) {
-
         throw new Error(
           data.error ?? "通信に失敗しました。"
         );
-
       }
 
 
