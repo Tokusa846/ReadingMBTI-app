@@ -95,7 +95,8 @@ document.addEventListener("DOMContentLoaded", () => {
         },
 
         body: JSON.stringify({
-          message: message
+          history: conversationHistory,
+          step: conversationStep
         }),
       });
 
