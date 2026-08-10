@@ -127,9 +127,19 @@ document.addEventListener("DOMContentLoaded", () => {
       // AIの返答を表示
       // ----------------------------
 
-      conductorResponse.textContent =
-        data.reply ?? "返答を取得できませんでした。";
+      const reply =
+      data.reply ?? "返答を取得できませんでした。";
 
+      // AIの返答を会話履歴に追加
+      conversationHistory.push({
+        role: "assistant",
+        content: reply
+      });
+
+      // 画面にAIの返答を表示
+      addMessage("conductor", reply);
+
+      // 会話エリアを表示
       conversationArea.hidden = false;
 
       formMessage.textContent = "";
@@ -157,3 +167,22 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 });
+
+function addMessage(sender, text) {
+
+  const conversationLog =
+    document.getElementById("conversation-log");
+
+  const messageElement =
+    document.createElement("div");
+
+  if (sender === "conductor") {
+    messageElement.className = "message conductor-message";
+  } else {
+    messageElement.className = "message user-message";
+  }
+
+  messageElement.textContent = text;
+
+  conversationLog.appendChild(messageElement);
+}

@@ -6,14 +6,16 @@ import { conductorK } from "../prompts/type-K.js";
 export async function POST(request) {
   try {
     const body = await request.json();
-    const message = body.message?.trim();
 
-     if (!message) {
-      return Response.json(
-        { error: "メッセージを入力してください。" },
-        { status: 400 }
-      );
-    }
+    const history = body.history ?? [];
+    const step = body.step ?? 0;
+
+     if (!Array.isArray(history) || history.length === 0) {
+        return Response.json(
+          { error: "会話履歴がありません。" },
+          { status: 400 }
+        );
+      }
 
     // 診断結果のユーザータイプを設定
     const userType = "KARS";
@@ -30,6 +32,22 @@ export async function POST(request) {
 
     この診断結果は参考情報としてのみ使用してください。
     今回のユーザーの発言を最優先してください。
+
+    # 現在の会話段階
+
+    現在のstep：${step}
+
+    step 0：
+    最初の質問を1つ返してください。
+
+    step 1：
+    ユーザーの回答を受け止め、
+    2つ目の質問を1つ返してください。
+
+    step 2：
+    追加質問は行わず、
+    これまでの会話を短く整理して
+    最終返答をしてください。
     `;
 
     const apiKey = process.env.OPENAI_API_KEY;
@@ -58,10 +76,7 @@ export async function POST(request) {
               role: "developer",
               content: developerPrompt,
             },
-            {
-              role: "user",
-              content: message,
-            },
+            ...history,
           ],
           store: false,
         }),
