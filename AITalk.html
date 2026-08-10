@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>読書コンダクター</title>
+
+  <link rel="stylesheet" href="conductor.css">
+</head>
+
+<body>
+
+  <main class="conductor-container">
+
+    <section class="book-registration">
+
+      <p class="conductor-label">READING CONDUCTOR</p>
+
+      <h1>読んだ本について<br>教えてください。</h1>
+
+      <p class="description">
+        あなたが本から受け取ったことを、<br>
+        コンダクターと一緒にゆっくり振り返ります。
+      </p>
+
+      <form id="book-form">
+
+        <div class="form-group">
+          <label for="book-title">本のタイトル</label>
+
+          <input
+            type="text"
+            id="book-title"
+            placeholder="例：天幕のジャードゥーガル"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="book-author">
+            著者
+            <span class="optional">任意</span>
+          </label>
+
+          <input
+            type="text"
+            id="book-author"
+            placeholder="著者名"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="book-impression">
+            この本を読んで、最初に思い浮かんだこと
+          </label>
+
+          <textarea
+            id="book-impression"
+            rows="6"
+            placeholder="面白かったこと、気になったこと、知らなかったことなど、自由に書いてください。"
+            required
+          ></textarea>
+        </div>
+
+        <button type="submit" id="start-conductor">
+          コンダクターと話す
+        </button>
+
+      </form>
+
+      <p id="form-message"></p>
+
+    </section>
+
+  </main>
+
+  <script src="conductor.js"></script>
+
+</body>
+</html>
