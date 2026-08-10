@@ -1,3 +1,13 @@
+// ----------------------------
+// 会話状態
+// ----------------------------
+let conversationStep = 0;
+let conversationHistory = [];
+let currentBook = null;
+
+// ----------------------------
+// 画面初期化
+// ----------------------------
 document.addEventListener("DOMContentLoaded", () => {
 
   const bookForm = document.getElementById("book-form");
@@ -28,35 +38,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // ----------------------------
-    // 本の情報をまとめる
+    // 今回話す本の情報を保存
     // ----------------------------
 
-    const bookData = {
+    currentBook = {
       title,
       author,
       impression
     };
 
-    console.log("登録された本：", bookData);
-
-
     // ----------------------------
-    // AIに送る文章を作る
+    // 新しい会話として履歴を初期化
     // ----------------------------
 
-    const message = `
-読んだ本を登録します。
+    conversationHistory = [
+      {
+        role: "user",
+        content: `
+    読んだ本を登録します。
 
-本のタイトル：
-${title}
+    本のタイトル：
+    ${title}
 
-著者：
-${author || "未入力"}
+    著者：
+    ${author || "未入力"}
 
-この本を読んで最初に思い浮かんだこと：
-${impression}
-    `.trim();
+    この本を読んで最初に思い浮かんだこと：
+    ${impression}
+        `.trim()
+      }
+    ];
 
+    // 会話の最初から開始
+    conversationStep = 0;
+
+    console.log("今回の本：", currentBook);
+    console.log("会話履歴：", conversationHistory);
 
     // ----------------------------
     // 通信開始
